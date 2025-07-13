@@ -1,9 +1,9 @@
--- Insert sample user for testing
+-- sample user for testing
 INSERT INTO users (user_id, phone_number, password_hash, full_name, email) VALUES 
 ('user_id_123', '7760873976', '$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewdBdXwtO5S7ZQvG', 'Railway Inspector', 'inspector@railway.com')
 ON CONFLICT (user_id) DO NOTHING;
 
--- Insert sample wheel specification
+-- sample wheel specification
 INSERT INTO wheel_specifications (
     form_number, submitted_by, submitted_date,
     tread_diameter_new, last_shop_issue_size, condemning_dia, wheel_gauge,
@@ -20,7 +20,7 @@ INSERT INTO wheel_specifications (
     '280 (+0.030/+0.052)', '127 (+4/-0)', 'Saved'
 ) ON CONFLICT (form_number) DO NOTHING;
 
--- Insert sample bogie checksheet
+-- sample bogie checksheet
 INSERT INTO bogie_checksheets (
     form_number, inspection_by, inspection_date,
     bogie_details, bogie_checksheet, bmbc_checksheet, status

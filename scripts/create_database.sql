@@ -1,10 +1,10 @@
--- Create database (run this first)
+--  database 
 CREATE DATABASE kpa_db;
 
--- Connect to the database and create tables
+-- Connected to the database and create tables
 \c kpa_db;
 
--- Create users table
+-- users table
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     phone_number VARCHAR(15) UNIQUE NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create form_submissions table
+-- form_submissions table
 CREATE TABLE IF NOT EXISTS form_submissions (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS form_submissions (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create indexes for better performance
+--indexes for better performance
 CREATE INDEX idx_users_phone ON users(phone_number);
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_form_submissions_user_id ON form_submissions(user_id);

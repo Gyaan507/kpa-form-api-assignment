@@ -15,10 +15,10 @@ from schemas import (
 )
 from auth import authenticate_user, create_access_token, get_current_user
 
-# Create tables
-print("🔧 Creating database tables...")
+# tables
+print(" Creating database tables...")
 Base.metadata.create_all(bind=engine)
-print("✅ Database tables created successfully!")
+print("Database tables created successfully!")
 
 app = FastAPI(
     title="KPA Form Data API",
@@ -40,7 +40,7 @@ async def root():
     return {
         "message": "KPA Form Data API - Railway Operations", 
         "version": "1.0.0",
-        "status": "✅ API is running successfully!",
+        "status": "API is running successfully!",
         "endpoints": {
             "docs": "/docs",
             "wheel_specs_post": "/api/forms/wheel-specifications",
@@ -50,6 +50,7 @@ async def root():
     }
 
 # API 1: POST - Submit Wheel Specifications
+
 @app.post("/api/forms/wheel-specifications", response_model=WheelSpecCreateResponse, status_code=status.HTTP_201_CREATED)
 async def create_wheel_specification(
     wheel_spec: WheelSpecificationCreate,
@@ -62,7 +63,7 @@ async def create_wheel_specification(
     and specifications required for railway wheel maintenance.
     """
     try:
-        print(f"📝 Creating wheel specification: {wheel_spec.formNumber}")
+        print(f"Creating wheel specification: {wheel_spec.formNumber}")
         
         # Check if form number already exists
         existing_form = db.query(WheelSpecification).filter(
@@ -104,7 +105,7 @@ async def create_wheel_specification(
         db.commit()
         db.refresh(db_wheel_spec)
         
-        print(f"✅ Wheel specification created successfully: {db_wheel_spec.form_number}")
+        print(f"Wheel specification created successfully: {db_wheel_spec.form_number}")
         
         return WheelSpecCreateResponse(
             success=True,
@@ -120,7 +121,7 @@ async def create_wheel_specification(
     except HTTPException:
         raise
     except Exception as e:
-        print(f"❌ Error creating wheel specification: {str(e)}")
+        print(f" Error creating wheel specification: {str(e)}")
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -128,6 +129,7 @@ async def create_wheel_specification(
         )
 
 # API 2: GET - Retrieve Wheel Specifications with Filters
+
 @app.get("/api/forms/wheel-specifications", response_model=WheelSpecListResponse)
 async def get_wheel_specifications(
     formNumber: Optional[str] = Query(None, description="Filter by form number"),
@@ -144,7 +146,7 @@ async def get_wheel_specifications(
     - submittedDate: Filter by submission date
     """
     try:
-        print(f"🔍 Fetching wheel specifications with filters: formNumber={formNumber}, submittedBy={submittedBy}, submittedDate={submittedDate}")
+        print(f" Fetching wheel specifications with filters: formNumber={formNumber}, submittedBy={submittedBy}, submittedDate={submittedDate}")
         
         query = db.query(WheelSpecification)
         
@@ -157,7 +159,7 @@ async def get_wheel_specifications(
             query = query.filter(WheelSpecification.submitted_date == submittedDate)
         
         specifications = query.all()
-        print(f"📊 Found {len(specifications)} wheel specifications")
+        print(f"Found {len(specifications)} wheel specifications")
         
         # Format response data
         response_data = []
@@ -194,7 +196,7 @@ async def get_wheel_specifications(
         )
         
     except Exception as e:
-        print(f"❌ Error fetching wheel specifications: {str(e)}")
+        print(f"Error fetching wheel specifications: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to retrieve wheel specifications: {str(e)}"
@@ -212,7 +214,7 @@ async def create_bogie_checksheet(
     Creates a new bogie inspection checksheet with detailed component conditions.
     """
     try:
-        print(f"📝 Creating bogie checksheet: {bogie_data.formNumber}")
+        print(f" Creating bogie checksheet: {bogie_data.formNumber}")
         
         # Check if form number already exists
         existing_form = db.query(BogieChecksheet).filter(
@@ -242,7 +244,7 @@ async def create_bogie_checksheet(
         db.commit()
         db.refresh(db_bogie)
         
-        print(f"✅ Bogie checksheet created successfully: {db_bogie.form_number}")
+        print(f" Bogie checksheet created successfully: {db_bogie.form_number}")
         
         return {
             "success": True,
@@ -258,7 +260,7 @@ async def create_bogie_checksheet(
     except HTTPException:
         raise
     except Exception as e:
-        print(f"❌ Error creating bogie checksheet: {str(e)}")
+        print(f" Error creating bogie checksheet: {str(e)}")
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -293,11 +295,11 @@ async def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
     }
 
 if __name__ == "__main__":
-    print("🚀 Starting KPA Form Data API...")
-    print("📍 API will be available at:")
+    print(" Starting KPA Form Data API...")
+    print("API will be available at:")
     print("   - http://localhost:8000")
     print("   - http://127.0.0.1:8000")
-    print("📚 Documentation at:")
+    print("Documentation at:")
     print("   - http://localhost:8000/docs")
     print("   - http://127.0.0.1:8000/docs")
     

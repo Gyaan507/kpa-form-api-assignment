@@ -4,7 +4,7 @@ CREATE DATABASE kpa_db;
 -- Connect to the database
 \c kpa_db;
 
--- Create users table
+-- users table
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
     user_id VARCHAR(50) UNIQUE NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create wheel_specifications table
+-- wheel_specifications table
 CREATE TABLE IF NOT EXISTS wheel_specifications (
     id SERIAL PRIMARY KEY,
     form_number VARCHAR(50) UNIQUE NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS wheel_specifications (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create bogie_checksheets table
+-- bogie_checksheets table
 CREATE TABLE IF NOT EXISTS bogie_checksheets (
     id SERIAL PRIMARY KEY,
     form_number VARCHAR(50) UNIQUE NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS bogie_checksheets (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create indexes for better performance
+-- indexes for better performance
 CREATE INDEX idx_wheel_specs_form_number ON wheel_specifications(form_number);
 CREATE INDEX idx_wheel_specs_submitted_by ON wheel_specifications(submitted_by);
 CREATE INDEX idx_wheel_specs_submitted_date ON wheel_specifications(submitted_date);
