@@ -1,2 +1,18 @@
-./myvenv
-./__pycache__
+# Ignore virtual environment
+myvenv/
+
+# Ignore Python cache
+__pycache__/
+*.py[cod]
+
+# Ignore VSCode settings (optional)
+.vscode/
+
+# Ignore environment files
+.env
+.env.*
+
+# Ignore database or log files (optional)
+*.sqlite3
+*.db
+*.log
