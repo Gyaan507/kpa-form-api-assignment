@@ -10,7 +10,7 @@ import json
 from datetime import datetime
 
 def create_sample_data():
-    print("🔧 Creating sample data for KPA Form API...")
+    print("Creating sample data for KPA Form API...")
     
     # Create tables
     Base.metadata.create_all(bind=engine)
@@ -30,9 +30,9 @@ def create_sample_data():
                 is_active=True
             )
             db.add(sample_user)
-            print("✅ Sample user created (user_id_123)")
+            print("Sample user created (user_id_123)")
         else:
-            print("ℹ️  Sample user already exists")
+            print("Sample user already exists")
         
         # Create sample wheel specification
         existing_wheel = db.query(WheelSpecification).filter(
@@ -62,9 +62,9 @@ def create_sample_data():
                 status="Saved"
             )
             db.add(sample_wheel)
-            print("✅ Sample wheel specification created (WHEEL-2025-001)")
+            print("Sample wheel specification created (WHEEL-2025-001)")
         else:
-            print("ℹ️  Sample wheel specification already exists")
+            print(" Sample wheel specification already exists")
         
         # Create sample bogie checksheet
         existing_bogie = db.query(BogieChecksheet).filter(
@@ -105,19 +105,19 @@ def create_sample_data():
                 status="Saved"
             )
             db.add(sample_bogie)
-            print("✅ Sample bogie checksheet created (BOGIE-2025-001)")
+            print("Sample bogie checksheet created (BOGIE-2025-001)")
         else:
-            print("ℹ️  Sample bogie checksheet already exists")
+            print("Sample bogie checksheet already exists")
         
         db.commit()
-        print("🎉 Sample data creation completed!")
-        print("\n📋 Test Data Available:")
+        print(" Sample data creation completed!")
+        print("\n Test Data Available:")
         print("   - User: user_id_123 (phone: 7760873976, password: to_share@123)")
         print("   - Wheel Spec: WHEEL-2025-001")
         print("   - Bogie Checksheet: BOGIE-2025-001")
         
     except Exception as e:
-        print(f"❌ Error creating sample data: {e}")
+        print(f" Error creating sample data: {e}")
         db.rollback()
     finally:
         db.close()
